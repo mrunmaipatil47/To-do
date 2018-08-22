@@ -2,29 +2,25 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faStroopwafel)
+library.add(faCheck)
 
-class Task extends Component {
-  render() {
-    const item = this.props.item
-
-    return (<div>
-      <span>
-        <li>{item}</li>
-      </span>
-    </div>)
-  }
-}
+const Task = (item, index) => (
+  <span key={index}>
+    <li>{item}</li>
+    <FontAwesomeIcon icon="check"/>
+  </span>
+)
 
 class TaskList extends Component {
   render() {
-    console.log("TaskList props = " + this.props.task)
+    const tasks = this.props.tasks.map(Task)
     return (
-      <div>
-        <Task item={this.props.task} />
-      </div>
+      <ul>
+        {tasks}
+      </ul>
     )
   }
 }
@@ -33,7 +29,7 @@ class TaskBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: " ",
+      inputValue: " ",
       tasks: []
     }
 
@@ -42,28 +38,26 @@ class TaskBox extends Component {
   }
 
   handleKeyPress = (event) => {
-    event.preventDefault();
-    if(event.Key === "Enter") {
+    if(event.key === 'Enter') {
       this.setState(prevState => ({
-        tasks: [...prevState.tasks, this.state.value]
+        tasks: [...prevState.tasks, this.state.inputValue],
+        inputValue: ' '
       }))
-      this.setState({ value: " " })
     }
   }
 
   handleChange = (event) => {
-    event.preventDefault();
     this.setState({
-      value : this.state.value
+      inputValue : event.target.value
     })
   }
 
   render() {
-    console.log("TaskBox State = " + this.state.tasks)
+    // console.log("TaskBox State = " + this.state.tasks)
     return (
       <div>
-        <input value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress}></input>
-        <TaskList task={this.state.tasks} />
+        <input value={this.state.inputValue} onChange={this.handleChange} onKeyPress={this.handleKeyPress}></input>
+        <TaskList tasks={this.state.tasks} />
       </div>
     )
 
