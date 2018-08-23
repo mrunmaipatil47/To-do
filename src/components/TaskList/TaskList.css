@@ -1,0 +1,36 @@
+.task li {
+    display: inline;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.icons {
+    float: right;
+    display: flex;
+    padding: 9px;
+    width: 5vw;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.icons span {
+    margin: auto;
+}
+
+.task {
+    background-color: #cccccc;
+    width: 80vw;
+    padding: 5px;
+    margin:5px auto;
+    height: 2em;
+}
+
+.taskList{
+    -webkit-padding-start: 0px !important;
+}
+
+.checked {
+    background-color: rgba(22, 133, 7, 0.438);
+}
+
+.trashed {
+    background-color: rgba(133, 7, 7, 0.438);
+}
